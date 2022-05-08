@@ -1,34 +1,33 @@
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfReader;
-import com.itextpdf.kernel.pdf.PdfWriter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
+@Slf4j
 public class Main {
 
     public static final String PATH_IN = "C:\\Users\\gagil\\IdeaProjects\\java-diploma\\data\\pdfs";
     public static final String PATH_OUT = "C:\\Users\\gagil\\IdeaProjects\\java-diploma\\data\\converted";
-    public static final List<PdfDocument> pdfDocumentList = new ArrayList<>();
+    public static final String CONFIG = "C:\\Users\\gagil\\IdeaProjects\\java-diploma\\data\\config";
 
-    public static void main(String[] args) throws Exception {
-        // создаём конфиг
-        LinksSuggester linksSuggester = new LinksSuggester(new File("data/config"));
+    public static void main(String[] args) {
+        try {
+            File config = new File(CONFIG);
+            System.out.println(config.exists());
+            LinksSuggester linksSuggester = new LinksSuggester(config);
 
-        // перебираем пдфки в data/pdfs
-        File dir = new File(PATH_IN);
-        for (File fileIn : dir.listFiles()) {
-            File fileOut = new File(PATH_OUT + "\\" + fileIn.getName());
-            //pdfDocumentList.add(new PdfDocument(new PdfReader(fileIn), new PdfWriter(fileOut)));
+            File dirIn = new File(PATH_IN);
+            File[] files = dirIn.listFiles();
+            log.debug("Число файлов в папке - {}", files.length);
+            if (files != null) {
+                for (File file : files) {
+                    Convertor program = new Convertor(file, linksSuggester);
+                    program.Converting();
+                }
+            } else {
+                log.info("Папка с файлами для редактирования пуста - {}", PATH_IN);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-
-        // для каждой пдфки создаём новую в data/converted
-
-        // перебираем страницы pdf
-
-        // если в странице есть неиспользованные ключевые слова, создаём новую страницу за ней
-
-        // вставляем туда рекомендуемые ссылки из конфига
     }
 }

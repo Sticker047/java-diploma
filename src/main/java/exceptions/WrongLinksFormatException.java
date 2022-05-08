@@ -1,3 +1,5 @@
+package exceptions;
+
 public class WrongLinksFormatException extends RuntimeException {
 
     public WrongLinksFormatException(String msg) {
