@@ -5,9 +5,10 @@ import java.io.File;
 @Slf4j
 public class Main {
 
-    public static final String PATH_IN = "C:\\Users\\gagil\\IdeaProjects\\java-diploma\\data\\pdfs";
-    public static final String PATH_OUT = "C:\\Users\\gagil\\IdeaProjects\\java-diploma\\data\\converted";
-    public static final String CONFIG = "C:\\Users\\gagil\\IdeaProjects\\java-diploma\\data\\config";
+    public static final String DATA = "C:\\Users\\gagil\\IdeaProjects\\java-diploma\\data\\";
+    public static final String PATH_IN = DATA + "pdfs";
+    public static final String PATH_OUT = DATA + "converted";
+    public static final String CONFIG = DATA + "config";
 
     public static void main(String[] args) {
         try {

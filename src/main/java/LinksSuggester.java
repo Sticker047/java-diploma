@@ -64,7 +64,7 @@ public class LinksSuggester {
         for (String value : lines) {
             String[] temp = value.split("\\t");
             if (temp.length != 3) {
-                log.error("Файл конфигурации имеет неверный формат", configFile.getPath());
+                log.error("Файл конфигурации имеет неверный формат - {}", configFile.getPath());
                 throw new WrongLinksFormatException("Файл конфигурации имеет неверный формат");
             }
         }

@@ -1,38 +1,34 @@
 import exceptions.WrongLinksFormatException;
-import junit.framework.TestCase;
 import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LinksSuggesterTest extends TestCase {
+public class LinksSuggesterTest {
 
-    private final String CONFIG_VALID = "C:\\Users\\gagil\\IdeaProjects\\java-diploma\\src\\test\\resources\\configFiles\\configValid";
-    private final String CONFIG_INVALID = "C:\\Users\\gagil\\IdeaProjects\\java-diploma\\src\\test\\resources\\configFiles\\configInvalid";
+    private final String CONFIG_FILES = "C:\\Users\\gagil\\IdeaProjects\\java-diploma\\src\\test\\resources\\configFiles\\";
+    private final String CONFIG_VALID = CONFIG_FILES + "configValid";
+    private final String CONFIG_INVALID = CONFIG_FILES + "configInvalid";
 
     @Test
     public void testIsConfigValid1() throws IOException {
         File configFile = new File(CONFIG_VALID);
-        assertTrue(LinksSuggester.isConfigValid(configFile));
+        Assert.assertTrue(LinksSuggester.isConfigValid(configFile));
     }
 
+    @Test
     public void testIsConfigValid2(){
         File configFile = new File(CONFIG_INVALID);
-        Throwable thrown = assertThrows(WrongLinksFormatException.class, () -> {
-            LinksSuggester.isConfigValid(configFile);
-        });
-        assertNotNull(thrown.getMessage());
+        Throwable thrown = assertThrows(WrongLinksFormatException.class, () -> LinksSuggester.isConfigValid(configFile));
+        Assert.assertNotNull(thrown.getMessage());
     }
 
+    @Test
     public void testGetSuggests() throws IOException {
         LinksSuggester linksSuggester = new LinksSuggester(new File(CONFIG_VALID));
         String text = "\n" +
@@ -57,7 +53,7 @@ public class LinksSuggesterTest extends TestCase {
         List<Suggest> suggestList = new ArrayList<>();
         suggestList.add(new Suggest("java", "The Best Java course", "http://example.org/java"));
 
-        assertEquals(suggestList, linksSuggester.getSuggests(text, 0));
+        Assert.assertEquals(suggestList, linksSuggester.getSuggests(text, 0));
 
     }
 }

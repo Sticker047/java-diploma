@@ -51,7 +51,7 @@ public class Convertor {
                     numberOfPages++;
                 }
             }
-            log.info("Файл отредактирован, число страниц - {}", numberOfPages++);
+            log.info("Файл отредактирован, число страниц - {}", ++numberOfPages);
         } catch (Exception ex) {
             log.info("Не удалось отредактировать файл - {}", fileIn.getPath());
             ex.printStackTrace();
